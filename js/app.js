@@ -1,11 +1,26 @@
 const journalIds = [];
+const articleId = "";
 $(() => {
+  const gotIds = article => {
+    console.log(article);
+  };
+
+  const grabMetaData = articleId => {
+    console.log("metadata article number", articleId);
+    $.ajax(
+      `https://eutils.ncbi.nlm.nih.gov/entrez/eutils/esummary.fcgi?db=pmc&id=${articleId}&retmode=json`
+    ).then(gotIds);
+  };
+
   const handleData = data => {
-    console.log(data);
+    console.log("all data", data);
     for (let i = 0; i < 20; ++i) {
       journalIds.push(data.esearchresult.idlist[i]);
+      let articleId = journalIds[i];
     }
-    console.log(journalIds);
+    console.log("journalIds array", journalIds);
+    console.log("first article", journalIds[0]);
+    grabMetaData(journalIds[0]);
   };
   $.ajax(
     "https://eutils.ncbi.nlm.nih.gov/entrez/eutils/esearch.fcgi?db=pmc&term=diabetes&retmode=json"
