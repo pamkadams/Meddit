@@ -22,6 +22,17 @@ $(() => {
     //displayArticle(articleObj);
   };
 
+  const getAbstract = () => {
+    $.ajax(
+
+      "https://eutils.ncbi.nlm.nih.gov/entrez/eutils/efetch.fcgi?db=pubmed&id=6757044&remote=json"
+      `
+    ).then((data) => {
+      const obj = JSON.parse(data);
+      console.log(obj);
+    });
+  };
+
   //use article id to grab metadata record for each article
   const grabMetaData = articleId => {
     $.ajax(
