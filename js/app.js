@@ -1,92 +1,46 @@
-const journalIds = [];
-const articleId = "";
 $(() => {
-  const gotIds = article => {
-    console.log(article);
+  let journalIds = [];
+  let articleId = "";
+  let articleInfo = [];
+
+  //extracts key data from metadata record for article
+  const gotMetaData = metadata => {
+    //article is an Object keys for display via the DOM:
+    //all fields are off these paths -- result.articleid. (both are objects that hold the rest)
+    //FYI articleId  is in the object articleids which is an array and is id is in index 2 -  example - 2: {idtype: "pmcid", value: "PMC6791746"} from the pmc query is the pmcid ID number (actually a string). The initial query in this app does NOT have PMC in front of the id.
+    //authors[0] - array and first author of the paper is index 0
+    //pubdate - publication date mm/dd/yy string
+    //fulljournalname - journal publication
+    const $uids = metadata.result.uids;
+    console.log(metadata.result[$uids[0]].pubdate);
+
+    //const articleObj = {
+
+    //console.log(articleInfo[1].result[journalIds[1]].authors[0].name);
+    //console.log(author);
   };
 
+  //use article id to grab metadata record for each article
   const grabMetaData = articleId => {
-    console.log("metadata article number", articleId);
     $.ajax(
-      `https://eutils.ncbi.nlm.nih.gov/entrez/eutils/esummary.fcgi?db=pmc&id=${articleId}&retmode=json`
-    ).then(gotIds);
+      `https://eutils.ncbi.nlm.nih.gov/entrez/eutils/esummary.fcgi?db=pmc&id=${articleId}&retmode=json
+      `
+    ).then(gotMetaData);
   };
 
+  //takes the PMC ids for 6 articles and push them into journalIds array.
   const handleData = data => {
-    console.log("all data", data);
-    for (let i = 0; i < 20; ++i) {
+    console.log("raw Journal IDs", data);
+    //searches PMC for all articles associated with the disease group.
+    //articleid from the pmc query is the pmcid ID number (actually a string)
+    for (let i = 0; i < 6; ++i) {
       journalIds.push(data.esearchresult.idlist[i]);
-      let articleId = journalIds[i];
+      grabMetaData(data.esearchresult.idlist[i]);
     }
-    console.log("journalIds array", journalIds);
-    console.log("first article", journalIds[0]);
-    grabMetaData(journalIds[0]);
   };
+
+  //AJAX call to the NCIB database
   $.ajax(
     "https://eutils.ncbi.nlm.nih.gov/entrez/eutils/esearch.fcgi?db=pmc&term=diabetes&retmode=json"
   ).then(handleData);
-
-  //   const handleData = data => {
-  //     for (let i = 0; i < $("#number").val(); ++i) {
-  //       const obj = {
-  //         descriptor: data[i].descriptor,
-  //         resolution: data[i].resolution_description
-  //       };
-  //       if (obj.resolution === undefined) obj.resolution = "Not resolved";
-
-  //       const descriptor = $("<p>")
-  //         .text(obj.descriptor)
-  //         .addClass("description");
-  //       $(".results").append(descriptor);
-  //       const policeButton = $("<button>").text("What did the police do?");
-  //       policeButton.attr("id", `button${i}`).addClass("policebutton");
-  //       $(descriptor).append(policeButton);
-  //       const resolution = $("<p>")
-  //         .text(obj.resolution)
-  //         .addClass("resolution")
-  //         .hide();
-  //       $(descriptor).append(resolution);
-  //       $(policeButton).click(() => {
-  //         resolution.show();
-  //       });
-  //     }
-  //   };
-
-  //   $("#brooklyn").click(() => {
-  //     event.preventDefault();
-
-  //     $.ajax(
-  //       "https://data.cityofnewyork.us/resource/fhrw-4uyv.json?agency=NYPD&borough=BROOKLYN"
-  //     ).then(handleData);
-  //   });
-
-  //   $("#manhattan").click(() => {
-  //     event.preventDefault();
-
-  //     console.log(num);
-  //     $.ajax(
-  //       "https://data.cityofnewyork.us/resource/fhrw-4uyv.json?agency=NYPD&borough=MANHATTAN"
-  //     ).then(handleData);
-  //   });
-
-  //   $("#queens").click(() => {
-  //     event.preventDefault();
-  //     $.ajax(
-  //       "https://data.cityofnewyork.us/resource/fhrw-4uyv.json?agency=NYPD&borough=QUEENS"
-  //     ).then(handleData);
-  //   });
-
-  //   $("#bronx").click(() => {
-  //     event.preventDefault();
-  //     $.ajax(
-  //       "https://data.cityofnewyork.us/resource/fhrw-4uyv.json?agency=NYPD&borough=BRONX"
-  //     ).then(handleData);
-  //   });
-
-  //   $("#statenisland").click(() => {
-  //     event.preventDefault();
-  //     $.ajax(
-  //       "https://data.cityofnewyork.us/resource/fhrw-4uyv.json?agency=NYPD&borough=STATEN ISLAND"
-  //     ).then(handleData);
-  //   });
 });
