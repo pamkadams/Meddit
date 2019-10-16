@@ -1,7 +1,7 @@
 $(() => {
   let journalIds = [];
   let articleId = "";
-  let articleInfo = [];
+  let articleArr = [];
 
   //extracts key data from metadata record for article
   const gotMetaData = metadata => {
@@ -11,13 +11,19 @@ $(() => {
     //authors[0] - array and first author of the paper is index 0
     //pubdate - publication date mm/dd/yy string
     //fulljournalname - journal publication
-    const $uids = metadata.result.uids;
-    console.log(metadata.result[$uids[0]].pubdate);
+    const $uids = metadata.result.uids[0];
 
-    //const articleObj = {
+    const articleObj = {
+      articleId: $uids,
+      title: metadata.result[$uids].title,
+      author: metadata.result[$uids].authors[0].name,
+      pubdate: metadata.result[$uids].pubdate,
+      journal: metadata.result[$uids].fulljournalname
+    };
 
-    //console.log(articleInfo[1].result[journalIds[1]].authors[0].name);
-    //console.log(author);
+    console.log(articleObj);
+    articleArr.push(articleObj);
+    displayArticle(articleObj);
   };
 
   //use article id to grab metadata record for each article
