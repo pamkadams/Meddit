@@ -1,3 +1,5 @@
+/*major sections not body - whole page, header and footer
+*/
 * {
   box-sizing: border-box;
   margin: 0;
@@ -9,7 +11,7 @@
 header {
   background-color: #1a237e;
   padding: 50px;
-  margin: 50px;
+  margin: 0 0 50px;
   text-align: center;
 }
 h1 {
@@ -17,9 +19,13 @@ h1 {
   color: #fafbff;
   font-size: 50px;
 }
+
+/*main body */
 main {
   background-color: #fafbff;
 }
+/*dropdown*/
+
 .dropdown-content {
   display: none;
   position: absolute;
@@ -57,4 +63,35 @@ main {
 }
 .dropdown:hover .dropbtn {
   background-color: #01bfa5;
+}
+/*search results*/
+.results {
+  color: #3d5afe;
+  padding: 8px;
+  font-size: 16px;
+  border: none;
+}
+.container {
+  padding: 4px;
+  border: 4px;
+}
+.author {
+  color: #01bfa5;
+}
+.title {
+  color: #1a237e;
+  font-weight: bold;
+}
+.journal {
+  font-style: italic;
+  color: #3d5afe;
+}
+
+.pubdate {
+  font-style: italic;
+  color: #01bfa5;
+  font-style: normal;
+}
+.clickable {
+  background-color: #fafbff;
 }
