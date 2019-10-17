@@ -3,6 +3,38 @@ $(() => {
   let articleId = "";
   let articleArr = [];
 
+  //medical conditions for drop down search options
+  const diseaseCategories = [
+    "heart%20disease",
+    "chronic%20lower%20respiratory",
+    "stroke",
+    "Alzheimer’s%20disease",
+    "diabetes",
+    "influenza%20pneumonia",
+    "Kidney%20disease",
+    "suicide",
+    "Septicemia",
+    "Liver%20diseases"
+  ];
+
+  const diseaseNames = [
+    "heart disease",
+    "chronic lower respiratory",
+    "stroke",
+    "Alzheimer’s disease",
+    "diabetes",
+    "influenza pneumonia",
+    "Kidney disease",
+    "suicide",
+    "Septicemia",
+    "Liver diseases"
+  ];
+  //populate search dropdown
+  for (let i = 0; i < diseaseNames.length; ++i) {
+    const $disease = $("<a>").text(diseaseNames[i]);
+    $(".dropdown-content").append($disease);
+  }
+
   //extracts key data from metadata record for article
   const gotMetaData = metadata => {
     //The article id is buried in the json object, it is pulled out below as $uids
@@ -20,17 +52,6 @@ $(() => {
     articleArr.push(articleObj);
     //pass the article object to the display function
     //displayArticle(articleObj);
-  };
-
-  const getAbstract = () => {
-    $.ajax(
-
-      "https://eutils.ncbi.nlm.nih.gov/entrez/eutils/efetch.fcgi?db=pubmed&id=6757044&remote=json"
-      `
-    ).then((data) => {
-      const obj = JSON.parse(data);
-      console.log(obj);
-    });
   };
 
   //use article id to grab metadata record for each article
