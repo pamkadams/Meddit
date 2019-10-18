@@ -141,6 +141,7 @@ $(() => {
 
   //AJAX call to the NCIB database
   const callNCIB = event => {
+    console.log(event.currentTarget.id);
     if (currentPage.length === 0) {
       const disease = event.currentTarget.id;
       currentPage = [event.currentTarget.id, 21];
@@ -148,7 +149,6 @@ $(() => {
         `https://eutils.ncbi.nlm.nih.gov/entrez/eutils/esearch.fcgi?db=pmc&term=${disease}}&retmode=json`
       ).then(handleData);
     } else {
-      console.log("working");
       $(".allarticles").empty();
 
       if (event.currentTarget.id === $("#prevbtn")) {
@@ -177,7 +177,7 @@ $(() => {
   //listeners and handlers
 
   //select a medical condition
-  $(".clickable").on("click", callNCIB);
+  $(".clickable").one("click", callNCIB);
 
   $(".results").on("click", "#nextbtn", event => {
     callNCIB(event);
@@ -189,6 +189,11 @@ $(() => {
 
   $(".results").on("click", ".container", event => {
     getAbstract(event);
+  });
+  $(".results").on("click", "#reset", event => {
+    console.log("working");
+    currentPage = [];
+    $(".allarticles").html("");
   });
 });
 // $(".container").on("click", worldCat);

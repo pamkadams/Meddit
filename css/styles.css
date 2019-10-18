@@ -98,4 +98,5 @@ main {
 }
 .clickable {
   background-color: #fafbff;
+  list-style: none;
 }
