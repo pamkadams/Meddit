@@ -65,6 +65,10 @@ main {
   background-color: #01bfa5;
 }
 /*search results*/
+
+.btn {
+  display: none;
+}
 .results {
   color: #3d5afe;
   padding: 8px;
