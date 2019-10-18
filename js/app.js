@@ -69,7 +69,7 @@ $(() => {
     const $articleContainer = $("<div>")
       .attr("id", `${article.articleId}`)
       .addClass("container");
-    $(".results").append($articleContainer);
+    $(".allarticles").append($articleContainer);
 
     const $author = $("<p>")
       .addClass("author")
@@ -149,13 +149,25 @@ $(() => {
       ).then(handleData);
     } else {
       console.log("working");
-      const nextpg = currentPage[1] + 20;
-      currentPage[1] = nextpg;
-      $.ajax(
-        `https://eutils.ncbi.nlm.nih.gov/entrez/eutils/esearch.fcgi?db=pmc&term=${
-          currentPage[0]
-        }&retmode=json&retstart=${currentPage[1]}&retmax=20`
-      ).then(handleData);
+      $(".allarticles").empty();
+
+      if (event.currentTarget.id === $("#prevbtn")) {
+        const prevpg = currentPage[1] - 20;
+        currentPage[1] = prevpg;
+        $.ajax(
+          `https://eutils.ncbi.nlm.nih.gov/entrez/eutils/esearch.fcgi?db=pmc&term=${
+            currentPage[0]
+          }&retmode=json&retstart=${currentPage[1]}&retmax=20`
+        ).then(handleData);
+      } else {
+        const nextpg = currentPage[1] + 20;
+        currentPage[1] = nextpg;
+        $.ajax(
+          `https://eutils.ncbi.nlm.nih.gov/entrez/eutils/esearch.fcgi?db=pmc&term=${
+            currentPage[0]
+          }&retmode=json&retstart=${currentPage[1]}&retmax=20`
+        ).then(handleData);
+      }
     }
   };
 
@@ -168,6 +180,10 @@ $(() => {
   $(".clickable").on("click", callNCIB);
 
   $(".results").on("click", "#nextbtn", event => {
+    callNCIB(event);
+  });
+
+  $(".results").on("click", "#prevbtn", event => {
     callNCIB(event);
   });
 
