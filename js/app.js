@@ -90,6 +90,9 @@ $(() => {
       .addClass("pubdate")
       .text(article["pubdate"]);
     $($articleContainer).append($pubDate);
+
+    const $findInLib = $("<p>");
+    $($articleContainer).append("<button>Find in Library</button>");
   };
   //extracts key data from metadata record for article
   const gotMetaData = metadata => {
@@ -142,6 +145,7 @@ $(() => {
   //AJAX call to the NCIB database
   const callNCIB = event => {
     console.log(event.currentTarget.id);
+    alert("Query will take up to 30 seconds to load");
     if (currentPage.length === 0) {
       const disease = event.currentTarget.id;
       currentPage = [event.currentTarget.id, 21];

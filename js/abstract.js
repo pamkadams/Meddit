@@ -25,3 +25,20 @@ $(() => {
 });
 
 https://eutils.ncbi.nlm.nih.gov/entrez/eutils/esearch.fcgi?db=pmc&term=eye&tool=my_tool&email=my_email@example.com&retmode=json&retstart=21&retmax=20
+
+
+const paging = () => {
+  console.log("working");
+  $.ajax(
+    `https://eutils.ncbi.nlm.nih.gov/entrez/eutils/esearch.fcgi?db=pmc&term=${
+      currentPage[0]
+    }&retmode=json&retstart=${currentPage[1] + 1}&retmax=20`
+  ).then(handleData);
+};
+
+$(".results").on("click", "#nextbtn", event => {
+  callNCIB(event);
+});
+
+const $findInLib = $("<p>");
+$($articleContainer.append('<button>Find in Library</button>')
