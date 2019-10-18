@@ -4,7 +4,7 @@ $(() => {
   let articleArr = [];
   let articleObj = {};
 
-  //medical conditions for drop down search options
+  //medical conditions for API search options and drop-down menu
   const diseaseCategories = [
     "heart%20disease",
     "chronic%20lower%20respiratory",
@@ -37,6 +37,7 @@ $(() => {
     $(".dropdown-content").append($disease);
   }
 
+  //API call for abstract on article clicked
   const getAbstract = event => {
     console.log("working");
     const abstractId = event.currentTarget.id;
@@ -44,8 +45,12 @@ $(() => {
     $.ajax(
       `https://eutils.ncbi.nlm.nih.gov/entrez/eutils/efetch.fcgi?db=pubmed&id=${abstractId}&remote=json`
     ).then(data => {
-      console.log(data);
-      if (data.indexOf("abstract") >= 0) {
+      if (!data.includes("abstract")) {
+        const $absent = $("<div>")
+          .addClass("abstract")
+          .text("Abstract not available");
+        $(`#${abstractId}`).append($absent);
+      } else {
         // console.log(data.indexOf("abstract"));
         //   console.log(data);
         //   console.log(typeof data);
@@ -54,8 +59,7 @@ $(() => {
         const abstract = str.slice(8, str.indexOf("mesh {"));
         const $abstract = $("<div>").text(abstract);
         $(`#${abstractId}`).append($abstract);
-      } else console.log("Abstract not available.");
-      console.log(abstract);
+      }
     });
   };
 
@@ -107,8 +111,17 @@ $(() => {
     //pass the article object to the display function
   };
 
+  function sleep(ms) {
+    return new Promise(resolve => setTimeout(resolve, ms));
+  }
+
   //use article id to grab metadata record for each article
   const grabMetaData = articleId => {
+    var now = new Date().getTime();
+    while (new Date().getTime() < now + 500) {
+      /* do nothing */
+    }
+
     $.ajax(
       `https://eutils.ncbi.nlm.nih.gov/entrez/eutils/esummary.fcgi?db=pmc&id=${articleId}&retmode=json
       `
@@ -117,10 +130,9 @@ $(() => {
 
   //takes the PMC ids for 6 articles and push them into journalIds array.
   const handleData = data => {
-    console.log("raw Journal IDs", data);
     //searches PMC for all articles associated with the disease group.
     //articleid from the pmc query is the pmcid ID number (actually a string)
-    for (let i = 0; i < 4; ++i) {
+    for (let i = 0; i < 10; ++i) {
       journalIds.push(data.esearchresult.idlist[i]);
       grabMetaData(data.esearchresult.idlist[i]);
     }
@@ -128,10 +140,7 @@ $(() => {
 
   //AJAX call to the NCIB database
   const callNCIB = event => {
-    console.log("ready");
-    console.log(event.currentTarget);
     const disease = event.currentTarget.id;
-    console.log("disease", disease);
 
     $.ajax(
       `https://eutils.ncbi.nlm.nih.gov/entrez/eutils/esearch.fcgi?db=pmc&term=${disease}}&retmode=json`
