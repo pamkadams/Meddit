@@ -17,17 +17,17 @@
       <h1>Med<span style="color:#01bfa5">d</span>it</h1>
       <nav>
         <a href="#">About</a>
-        <a href="#">Medical Conditions</a>
-        <a href="#">Intent</a>
+        <div class="dropdown">
+          <a href="#">Medical Conditions</a>
+          <div class="dropdown-content"></div>
+        </div>
+
+        <a href="#">What is Meddit?</a>
       </nav>
     </header>
 
     <main>
       <div id="search">
-        <div class="dropdown">
-          <button class="dropbtn">Medical Condition</button>
-          <div class="dropdown-content"></div>
-        </div>
         <div class="results">
           RESULTS
 
@@ -42,6 +42,8 @@
           <div class="allarticles"></div>
         </div>
       </div>
+      <section class="marketing">About</section>
+      <section class="marketing">What is Meddit</section>
     </main>
     <script
       src="https://code.jquery.com/jquery-3.4.1.min.js"
