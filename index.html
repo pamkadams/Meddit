@@ -24,34 +24,35 @@
     </header>
 
     <main>
-      <div id="search">
-        <div class="results">
-          RESULTS
+      <div class="parent">
+        <div id="child2">
+          <section class="results">
+            <div class="pagingBtns">
+              <button id="nextbtn">Next Page</button>
+              <button id="prevbtn">Previous Page</button>
+              <button id="reset">Reset</button>
+            </div>
+            <div class="waitingcontainer">
+              <div class="waitingicon"></div>
+            </div>
+            <div class="allarticles"></div>
+          </section>
 
-          <div class="pagingBtns">
-            <button id="nextbtn">Next Page</button>
-            <button id="prevbtn">Previous Page</button>
-            <button id="reset">Reset</button>
+          <section class="about"></section>
+          <div class="carousel">
+            <div class="carousel-button previous"></div>
+            <div class="carousel-images">
+              <img src="images/Meddit slideshow (3).png" alt="" />
+              <img src="images/Meddit slideshow (2).png" alt="" />
+              <img src="images/Meddit slideshow.png" alt="" />
+              <img src="images/Meddit slideshow (1).png" alt="" />
+            </div>
+            <div class="carousel-button next"></div>
           </div>
-          <div class="waitingcontainer">
-            <div class="waitingicon"></div>
-          </div>
-          <div class="allarticles"></div>
         </div>
-      </div>
-      <section class="marketing">About</section>
-
-      <div class="carousel">
-        <div class="carousel-button previous"></div>
-        <div class="carousel-images">
-          <img src="images/Meddit slideshow (3).png" alt="" />
-          <img src="images/Meddit slideshow (2).png" alt="" />
-          <img src="images/Meddit slideshow.png" alt="" />
-          <img src="images/Meddit slideshow (1).png" alt="" />
-        </div>
-        <div class="carousel-button next"></div>
       </div>
     </main>
+
     <script
       src="https://code.jquery.com/jquery-3.4.1.min.js"
       integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo="
@@ -59,4 +60,5 @@
     ></script>
     <script src="js/app.js"></script>
   </body>
+  <footer></footer>
 </html>

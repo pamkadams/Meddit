@@ -1,4 +1,6 @@
 $(() => {
+  $(".waitingcontainer").toggle();
+  $(".pagingBtns").hide();
   let journalIds = [];
   let articleId = "";
   let articleArr = [];
@@ -97,6 +99,8 @@ $(() => {
   //extracts key data from metadata record for article
   const gotMetaData = metadata => {
     //The article id is buried in the json object, it is pulled out below as $uids
+    $(".waitingcontainer").hide();
+    $(".pagingBtns").show();
     const $uids = metadata.result.uids[0];
 
     articleObj = {
@@ -146,6 +150,7 @@ $(() => {
   const callNCIB = event => {
     console.log(event.currentTarget.id);
     alert("Query will take up to 30 seconds to load");
+    $(".waitingcontainer").toggle();
     if (currentPage.length === 0) {
       const disease = event.currentTarget.id;
       currentPage = [event.currentTarget.id, 21];
