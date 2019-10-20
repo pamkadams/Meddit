@@ -178,6 +178,43 @@ $(() => {
   // const worldCat=()=>{
   //   https://www.worldcat.org/title/cognitive-and-neuroanatomic-accounts-of-referential-communication-in-focal-dementia/oclc/8211639446&referer=brief_results
   // }
+
+  // carousel
+  let currentImgIndex = 0;
+
+  let highestIndex = $(".carousel-images").children().length - 1;
+  let lowestIndex = 0;
+
+  $(".next").on("click", () => {
+    const $currentImg = $(".carousel-images")
+      .children()
+      .eq(currentImgIndex);
+    $currentImg.css("display", "none");
+    currentImgIndex++;
+    if (currentImgIndex > highestIndex) {
+      currentImgIndex = 0;
+    }
+    const nextImg = $(".carousel-images")
+      .children()
+      .eq(currentImgIndex)
+      .css("display", "block");
+  });
+
+  $(".previous").on("click", () => {
+    const $currentImg = $(".carousel-images")
+      .children()
+      .eq(currentImgIndex);
+    $currentImg.css("display", "none");
+    currentImgIndex--;
+    if (currentImgIndex < 0) {
+      currentImgIndex = $(".carousel-images").children().length - 1;
+    }
+    const nextImg = $(".carousel-images")
+      .children()
+      .eq(currentImgIndex)
+      .css("display", "block");
+  });
+
   //listeners and handlers
 
   //select a medical condition

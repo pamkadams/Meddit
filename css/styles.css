@@ -145,3 +145,42 @@ main {
   border-left-color: #01bfa5;
   animation: spin 2s infinite ease-in-out;
 }
+
+/*carousel*/
+.carousel {
+  width: 70%;
+  display: flex;
+  justify-content: space-around;
+}
+.carousel-images {
+  width: 80%;
+  background: #01bfa5;
+  padding: 10px;
+  border-radius: 10px;
+  box-sizing: border-box;
+  box-shadow: 2px 2px #01bfa5;
+}
+
+.carousel-images img {
+  display: none;
+  width: 100%;
+  border-radius: 10px;
+}
+
+.carousel-images img:first-of-type {
+  display: block;
+}
+.carousel-button {
+  align-self: center;
+  background: #ff3f81;
+  padding: 10px;
+  border-radius: 50%;
+  text-align: center;
+  box-shadow: 1px 1px#ff3f81;
+}
+.carousel-button:hover {
+  cursor: pointer;
+  background: #ff3f81;
+  box-shadow: 1px 1px#ff3f81;
+  color: white;
+}
