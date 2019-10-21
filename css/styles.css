@@ -11,53 +11,41 @@
   text-align: center;
   border: 0;
 }
-.parent {
+.search {
   display: flex;
   width: 100vw;
   height: 100vh;
-  flex-direction: row;
+  flex-direction: column;
   justify-content: space-evenly;
-}
-.child2 .about {
-  flex: 1;
-  display: flex;
-  flex-direction: row;
-  /*justify-content: space-evenly;*/
-  align-items: center;
 }
 
-.child2 {
-  display: flex;
-  flex-direction: row;
-  justify-content: space-evenly;
-}
 header {
   background-color: #1a237e;
-  height: 20%;
-  margin: 0;
+  height: 20vh;
+
   border-bottom: 2px #1a237e solid;
   text-align: center;
 }
 h1 {
   font-family: "Heebo", sans-serif;
   color: #fafbff;
-  font-size: 50px;
-  padding: 20px;
+  font-size: 5vw;
+  padding-top: 5px;
 }
 /*dropdown*/
 
 a {
   font-family: "Heebo", sans-serif;
   color: #fafbff;
-  font-size: 16px;
+  font-size: 2vw;
   text-transform: uppercase;
   font-weight: thin;
   letter-spacing: 1px;
-  border-top: 10px solid transparent;
+  border-top: 0 solid transparent;
   border-bottom: 0 solid transparent;
-  padding: 20px 20px 0 0;
-  position: relative;
-  display: inline-block;
+  /* padding: 20px 20px 0 0; */
+  /* position: relative; */
+  /* display: inline-block; */
   background-color: #1a237e;
 }
 a:hover {
@@ -115,6 +103,22 @@ main {
 
 .pagingBtns {
   flex: 1;
+  max-height: 5vh;
+  width: auto;
+  height: auto;
+}
+.article-icon {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  color: #3d5afe;
+  box-sizing: border-box;
+  padding: 8px;
+  font-size: 16px;
+  border: none;
+  overflow: auto;
+  position: relative;
+  align-items: center;
 }
 .results {
   flex: 1;
@@ -126,6 +130,9 @@ main {
   font-size: 16px;
   border: none;
   overflow: auto;
+  position: relative;
+  align-items: center;
+  justify-content: center;
 }
 .container {
   padding: 4px;
@@ -157,10 +164,12 @@ main {
 .waitingcontainer {
   flex: 1;
   background-color: #fafbff;
-  width: 10%;
+  width: 10vw;
   transform: translate(-50%, -50%);
   padding: 10px 30px;
   max-height: 80px;
+
+  z-index: 1;
 }
 
 .waitingicon {
@@ -172,24 +181,26 @@ main {
   border-top-color: #01bfa5;
   border-left-color: #01bfa5;
   animation: spin 2s infinite ease-in-out;
+
+  z-index: 1;
 }
 
 /*carousel*/
 .carousel {
   max-width: auto;
-
-  flex: 1;
   align-items: center;
   justify-content: center;
   display: flex;
+  padding: 4px;
 }
 .carousel-images {
-  width: 80%;
+  width: 40vw;
+  height: auto;
   background: #01bfa5;
-  padding: 10px;
+  padding: 1px;
   border-radius: 10px;
   box-sizing: border-box;
-  box-shadow: 2px 2px #01bfa5;
+  box-shadow: 2px 2px #24a997;
   align-items: center;
   justify-content: center;
 }
