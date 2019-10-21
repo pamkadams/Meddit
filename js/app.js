@@ -94,7 +94,7 @@ $(() => {
     $($articleContainer).append($pubDate);
 
     const $findInLib = $("<p>");
-    $($articleContainer).append("<button>Find in Library</button>");
+    $(".allarticles").append("<button>Find in Library</button>");
   };
   //extracts key data from metadata record for article
   const gotMetaData = metadata => {
@@ -102,7 +102,6 @@ $(() => {
     $(".waitingcontainer").hide();
     $(".pagingBtns").show();
     const $uids = metadata.result.uids[0];
-
     articleObj = {
       articleId: $uids,
       title: metadata.result[$uids].title + ".",
@@ -111,12 +110,8 @@ $(() => {
       journal: metadata.result[$uids].fulljournalname + "."
     };
 
-    // console.log(articleObj);
-    articleArr.push(articleObj);
-    displayArticle(articleArr[articleArr.length - 1]);
-    console.log(articleArr);
-
     //pass the article object to the display function
+    displayArticle(articleObj);
   };
 
   // function sleep(ms) {
@@ -148,8 +143,6 @@ $(() => {
 
   //AJAX call to the NCIB database
   const callNCIB = event => {
-    console.log(event.currentTarget.id);
-    alert("Query will take up to 30 seconds to load");
     $(".waitingcontainer").toggle();
     if (currentPage.length === 0) {
       const disease = event.currentTarget.id;
@@ -223,7 +216,7 @@ $(() => {
   //listeners and handlers
 
   //select a medical condition
-  $(".clickable").one("click", callNCIB);
+  $(".clickable").on("click", callNCIB);
 
   $(".results").on("click", "#nextbtn", event => {
     callNCIB(event);
