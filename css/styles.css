@@ -207,6 +207,7 @@ main {
   border-radius: 50%;
   text-align: center;
   box-shadow: 1px 1px#ff3f81;
+  margin: 10px;
 }
 .carousel-button:hover {
   cursor: pointer;
