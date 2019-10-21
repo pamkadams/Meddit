@@ -29,27 +29,27 @@ header {
 h1 {
   font-family: "Heebo", sans-serif;
   color: #fafbff;
-  font-size: 5vw;
-  padding-top: 5px;
+  padding-top: 2px;
+  font-size: 2em;
 }
 /*dropdown*/
 h2 {
   font-family: "Heebo", sans-serif;
   color: #fafbff;
-  font-size: 2vw;
+  font-size: 4vw;
   padding-top: 5px;
 }
 a {
   font-family: "Heebo", sans-serif;
   color: #fafbff;
-  font-size: 2vw;
+  font-size: 1em;
   text-transform: uppercase;
   font-weight: thin;
   letter-spacing: 1px;
   border-top: 0 solid transparent;
   border-bottom: 0 solid transparent;
-  /* padding: 20px 20px 0 0; */
-  /* position: relative; */
+  /* padding: 20px 20px 0 0;  */
+  position: relative;
   /* display: inline-block; */
   background-color: #1a237e;
 }
@@ -64,9 +64,10 @@ a:hover {
 }
 
 .dropdown-content a {
+  font-size: 5vh;
   border: #01bfa5;
   background-color: #1a237e;
-  padding: 5px;
+  padding: 1px;
   text-decoration: none;
   display: block;
 }
@@ -167,18 +168,19 @@ main {
 
 /*animation*/
 .waitingcontainer {
-  display: block;
   background-color: #fafbff;
-  width: 40%;
+
   transform: translate(-50%, -50%);
-  padding: 10px 30px;
-  max-height: 12vh;
+  /* padding: 10px 30px; */
+  margin-top: 20px;
+  margin-left: 10px;
+  border-radius: 50%;
   z-index: 2;
 }
 
 .waitingicon {
-  display: block;
-  border: 6px solid #fafbff;
+  display: inline-block;
+  border: 10px solid #fafbff;
   width: 40%;
   height: 40%;
   border-radius: 50%;
