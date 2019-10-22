@@ -261,3 +261,16 @@ hr {
   box-shadow: 1px 1px#ff3f81;
   color: white;
 }
+footer {
+  background-color: #1a237e;
+  color: white;
+  border-top: 8px solid #1a237e;
+  bottom: 0;
+  height: 10vh;
+}
+h3 {
+  font-size: 12px;
+}
+a {
+  color: white;
+}
