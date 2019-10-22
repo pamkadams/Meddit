@@ -13,7 +13,7 @@ The app uses 3 PubMed Central (PMC) APIs (https://www.ncbi.nlm.nih.gov/pmc/tools
 
 * Search for associated metadata by PMCIDs (https://www.ncbi.nlm.nih.gov/pmc/tools/get-metadata/)
 
-* Find associated abstracts using E-Fetch with PubMed (https://www.ncbi.nlm.nih.gov/pmc/tools/get-metadata/). This data is available as a string and was manipulated with to extract the abstract.
+* Find associated abstracts using E-Fetch with PubMed (https://www.ncbi.nlm.nih.gov/pmc/tools/get-metadata/).
 
 ## Approach 
 
@@ -25,14 +25,236 @@ The app uses 3 PubMed Central (PMC) APIs (https://www.ncbi.nlm.nih.gov/pmc/tools
 6. The app stores the current number of articles and allows the user to progress to the next or previous batch of articles. 
 7. User may also reset the whole site and search a different disease group. 
 
+## Challenges
+1. Access of no more than 3 records in a second - my second query was timing out with a 429 error. Had to slow down my code and Stack Overflow came to my rescue. Secondly it was taking way too long to load the 20 records (PMC API sends out 20 articles at a time) into the browser. Lastly I needed some way to have the user know the site was working. Adding a loading circle was the solution. Tried out a few and settled on one that relied on css to generate. I used transform on the container  and animation on the icon itself.
+
+2. Retrieving the abstract was difficult because the code was not recognizable by javascript as anything but text - no ability to use arrays, objects, etc. to get into the inner part of the code.
+
+```
+Beginning of the 
+Pubmed-entry ::= {
+  pmid 6802935,
+  medent {
+    em std {
+      year 1981,
+      month 11,
+      day 1,
+      hour 0,
+      minute 0
+    },
+    cit {
+      title {
+        name "Resistance to fluorouracil in Candida utilis: effects on the
+ uptake of pyrimidines and amino acids."
+      },
+      authors {
+        names ml {
+          "Wild DG",
+          "Wilson GI"
+        }
+      },
+      from journal {
+        title {
+          iso-jta "J. Gen. Microbiol.",
+          ml-jta "J Gen Microbiol",
+          issn "0022-1287",
+          name "Journal of general microbiology"
+        },
+        imp {
+          date std {
+            year 1981,
+            month 11
+          },
+          volume "127",
+          issue "1",
+          pages "45-53",
+          language "eng",
+          pubstatus ppublish,
+          history {
+            {
+              pubstatus pubmed,
+              date std {
+                year 1981,
+                month 11,
+                day 1
+              }
+            },
+            {
+              pubstatus medline,
+              date std {
+                year 1981,
+                month 11,
+                day 1,
+                hour 0,
+                minute 1
+              }
+            },
+            {
+              pubstatus other,
+              date std {
+                year 1981,
+                month 11,
+                day 1,
+                hour 0,
+                minute 0
+              }
+            }
+          }
+        }
+      },
+      ids {
+        pubmed 6802935,
+        doi "10.1099/00221287-127-1-45"
+      }
+    },
+    abstract "5-Fluorouracil powerfully inhibits growth of Candida utilis.
+ Isolates that are resistant to fluorouracil all have a reduced ability to
+ transport uracil but most also have other defects. Their capacity to take up
+ a wide range of amino acids is greatly reduced, as is their ability to alter
+ rates of amino acid transport during nitrogen starvation. These isolates may
+ be defective in the coupling of energy generation to transport systems.",
+    mesh {
+      {
+        term "Amino Acids",
+        qual {
+          {
+            mp TRUE,
+            subh "metabolism"
+          }
+        }
+      },
+      {
+        term "Biological Transport",
+        qual {
+          {
+            subh "drug effects"
+          }
+        }
+      },
+      {
+        term "Candida",
+        qual {
+          {
+            mp TRUE,
+            subh "drug effects"
+          },
+          {
+            subh "metabolism"
+          }
+        }
+      },
+      {
+        term "Drug Resistance, Microbial"
+      },
+      {
+        term "Fluorouracil",
+        qual {
+          {
+            mp TRUE,
+            subh "pharmacology"
+          }
+        }
+      },
+      {
+        term "Lysine",
+        qual {
+          {
+            subh "metabolism"
+          }
+        }
+      },
+      {
+        term "Nitrogen",
+        qual {
+          {
+            subh "metabolism"
+          }
+        }
+      },
+      {
+        term "Uracil",
+        qual {
+          {
+            mp TRUE,
+            subh "metabolism"
+          }
+        }
+      }
+    },
+    substance {
+      {
+        type nameonly,
+        name "Amino Acids"
+      },
+      {
+        type cas,
+        cit "56HH86ZVCT",
+        name "Uracil"
+      },
+      {
+        type cas,
+        cit "K3Z4F929H6",
+        name "Lysine"
+      },
+      {
+        type cas,
+        cit "N762921K75",
+        name "Nitrogen"
+      },
+      {
+        type cas,
+        cit "U3P01618RT",
+        name "Fluorouracil"
+      }
+    },
+    pmid 6802935,
+    pub-type {
+      "Journal Article",
+      "Research Support, Non-U.S. Gov't"
+    },
+    status medline
+  }
+}
+```
+code snippet:
+
+```const getAbstract = event => {
+    console.log("working");
+    const abstractId = event.currentTarget.id;
+    console.log(abstractId);
+    $.ajax(
+      `https://eutils.ncbi.nlm.nih.gov/entrez/eutils/efetch.fcgi?db=pubmed&id=${abstractId}&remote=json`
+    ).then(data => {
+      if (!data.includes("abstract")) {
+        const $absent = $("<div>")
+          .addClass("abstract")
+          .text("Abstract not available");
+        $(`#${abstractId}`).append($absent);
+      } else {
+        console.log(data.indexOf("abstract"));
+        console.log(data);
+        console.log(typeof data);
+        const str = data.slice(data.indexOf("abstract"));
+        //   console.log(str);
+        const abstract = str.slice(8, str.indexOf("mesh {"));
+        const $abstract = $("<div>").text(abstract);
+        $(`#${abstractId}`).append($abstract);
+      }
+    });
+  };
+  ```
+
 ## Link to live site
 http://meddit.surge.sh/#results
 
-## Installation instructions
+
 
 ## Future Development
 * Link to WorldCat by title to access locations of the article near user.
 * Input field to allow users to search by specific interest and thereby increase the signal to noise ratio.
 * Add another API to use the NCBI MeSH (Medical Subject Headings) to help narrow search critera
+* Add user comment capability
+* Log in and security
+* Ability to annotate and up/down vote articles
 
 
