@@ -26,9 +26,47 @@ The app uses 3 PubMed Central (PMC) APIs (https://www.ncbi.nlm.nih.gov/pmc/tools
 7. User may also reset the whole site and search a different disease group. 
 
 ## Challenges
-1. Access of no more than 3 records in a second - my second query was timing out with a 429 error. Had to slow down my code and Stack Overflow came to my rescue. Secondly it was taking way too long to load the 20 records (PMC API sends out 20 articles at a time) into the browser. Lastly I needed some way to have the user know the site was working. Adding a loading circle was the solution. Tried out a few and settled on one that relied on css to generate. I used transform on the container  and animation on the icon itself.
+1. Event handlers on dynamically-created elements required attaching it to the parent that wasn't dynamically created. 
+```
+$(".clickable").on("click", callNCIB);
 
-2. Retrieving the abstract was difficult because the code was not recognizable by javascript as anything but text - no ability to use arrays, objects, etc. to get into the inner part of the code.
+  $(".results").on("click", "#nextbtn", event => {
+    callNCIB(event);
+  });
+  ```
+
+2. Access of no more than 3 records in a second - my second query was timing out with a 429 error. Had to slow down my code and Stack Overflow came to my rescue. Secondly it was taking way too long to load the 20 records (PMC API sends out 20 articles at a time) into the browser. Lastly I needed some way to have the user know the site was working. Adding a loading circle was the solution. Tried out a few and settled on one that relied on css to generate. I used transform on the container  and animation on the icon itself. Attached it to the function 
+```
+ //AJAX call to the NCIB database
+  const callNCIB = event => {
+    $(".waitingcontainer").toggle();
+```
+```$(".waitingcontainer").hide();```
+```
+.waitingcontainer {
+  background-color: #fafbff;
+
+  transform: translate(-50%, -50%);
+  /* padding: 10px 30px; */
+  margin-top: 20px;
+  margin-left: 10px;
+  border-radius: 50%;
+  z-index: 2;
+}
+
+.waitingicon {
+  display: inline-block;
+  border: 10px solid #fafbff;
+  width: 40%;
+  height: 40%;
+  border-radius: 50%;
+  border-top-color: #01bfa5;
+  border-left-color: #01bfa5;
+  animation: spin 2s infinite ease-in-out;
+  z-index: 2;
+}
+```
+3. Retrieving the abstract was difficult because the code was not recognizable by javascript as anything but text - no ability to use arrays, objects, etc. to get into the inner part of the code.
 
 ```
 Beginning of the 
@@ -245,6 +283,7 @@ code snippet:
   ```
 
 ## Link to live site
+https://5daf5ee5277f65d5218ae254--pedantic-bartik-ecc4e3.netlify.com/#results
 http://meddit.surge.sh/#results
 
 
