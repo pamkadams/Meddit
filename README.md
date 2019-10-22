@@ -258,4 +258,4 @@ http://meddit.surge.sh/#results
 * Ability to annotate and up/down vote articles
 
 ## Citation: 
-National Center for Biotechnology Information (NCBI)[Internet]. Bethesda (MD): National Library of Medicine (US), National Center for Biotechnology Information; [1988] – [cited 2017 Apr 06]. Available from: https://www.ncbi.nlm.nih.gov/
+National Center for Biotechnology Information (NCBI)[Internet]. Bethesda (MD): National Library of Medicine (US), National Center for Biotechnology Information; [1988] – [cited 2019 Oct 22]. Available from: https://www.ncbi.nlm.nih.gov/
