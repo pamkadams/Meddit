@@ -93,8 +93,9 @@ $(() => {
       .text(article["pubdate"]);
     $($articleContainer).append($pubDate);
 
-    const $findInLib = $("<p>");
-    $(".allarticles").append("<button>Find in Library</button>");
+    const $line = $("<hr>");
+
+    $($articleContainer).append($line);
   };
   //extracts key data from metadata record for article
   const gotMetaData = metadata => {
@@ -173,10 +174,6 @@ $(() => {
     }
   };
 
-  // const worldCat=()=>{
-  //   https://www.worldcat.org/title/cognitive-and-neuroanatomic-accounts-of-referential-communication-in-focal-dementia/oclc/8211639446&referer=brief_results
-  // }
-
   // carousel
   let currentImgIndex = 0;
 
@@ -235,4 +232,3 @@ $(() => {
     $(".allarticles").html("");
   });
 });
-// $(".container").on("click", worldCat);
