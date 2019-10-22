@@ -80,6 +80,7 @@ a:hover {
 .dropdown-content a:hover {
   background-color: #1a237e;
   color: #01bfa5;
+  cursor: pointer;
 }
 
 .dropdown {
@@ -119,6 +120,7 @@ button {
   max-height: 5vh;
   width: auto;
   height: auto;
+  cursor: pointer;
 }
 .article-icon {
   flex: 1;

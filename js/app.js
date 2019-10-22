@@ -54,9 +54,9 @@ $(() => {
           .text("Abstract not available");
         $(`#${abstractId}`).append($absent);
       } else {
-        // console.log(data.indexOf("abstract"));
-        //   console.log(data);
-        //   console.log(typeof data);
+        console.log(data.indexOf("abstract"));
+        console.log(data);
+        console.log(typeof data);
         const str = data.slice(data.indexOf("abstract"));
         //   console.log(str);
         const abstract = str.slice(8, str.indexOf("mesh {"));
@@ -115,11 +115,11 @@ $(() => {
     displayArticle(articleObj);
   };
 
-  // function sleep(ms) {
+  // first try: function sleep(ms) {
   //   return new Promise(resolve => setTimeout(resolve, ms));
   // }
 
-  //use article id to grab metadata record for each article
+  //use article id to grab metadata record for each article used solution from Stack Overflow.
   const grabMetaData = articleId => {
     var now = new Date().getTime();
     while (new Date().getTime() < now + 500) {
