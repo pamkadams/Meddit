@@ -15,7 +15,7 @@ The app uses 3 PubMed Central (PMC) APIs (https://www.ncbi.nlm.nih.gov/pmc/tools
 
 * Find associated abstracts using E-Fetch with PubMed (https://www.ncbi.nlm.nih.gov/pmc/tools/get-metadata/). This data is available as a string and was manipulated with to extract the abstract.
 
-##Approach 
+## Approach 
 
 1. Identify disease groups and create an array of disease groups.
 2. Search for relevant papers by retrieving PMC article id.
@@ -25,13 +25,14 @@ The app uses 3 PubMed Central (PMC) APIs (https://www.ncbi.nlm.nih.gov/pmc/tools
 6. The app stores the current number of articles and allows the user to progress to the next or previous batch of articles. 
 7. User may also reset the whole site and search a different disease group. 
 
-##Link to live site
+## Link to live site
+http://meddit.surge.sh/#results
 
-##Installation instructions
+## Installation instructions
 
-##Future Development
+## Future Development
 * Link to WorldCat by title to access locations of the article near user.
 * Input field to allow users to search by specific interest and thereby increase the signal to noise ratio.
 * Add another API to use the NCBI MeSH (Medical Subject Headings) to help narrow search critera
 
-to retrieve abstract (the approach taken, a link to your live site, installation instructions, unsolved problems, etc.
+
