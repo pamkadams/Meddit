@@ -26,7 +26,7 @@ The app uses 3 PubMed Central (PMC) APIs (https://www.ncbi.nlm.nih.gov/pmc/tools
 7. User may also reset the whole site and search a different disease group. 
 
 ## Challenges
-1. Event handlers on dynamically-created elements required attaching it to the parent that wasn't dynamically created. 
+1. Event handlers and drop-down menus on dynamically-created elements required attaching it to the parent that wasn't dynamically created. 
 ```
 $(".clickable").on("click", callNCIB);
 
@@ -35,7 +35,7 @@ $(".clickable").on("click", callNCIB);
   });
   ```
 
-2. Access of no more than 3 records in a second - my second query was timing out with a 429 error. Had to slow down my code and Stack Overflow came to my rescue. Secondly it was taking way too long to load the 20 records (PMC API sends out 20 articles at a time) into the browser. Lastly I needed some way to have the user know the site was working. Adding a loading circle was the solution. Tried out a few and settled on one that relied on css to generate. I used transform on the container  and animation on the icon itself. Attached it to the function 
+2. Access to no more than 3 records in a second. The query was timing out with a 429 error. I had to slow down my code and Stack Overflow came to my rescue. Secondly it was taking way too long to load the 20 records (PMC API sends out 20 articles at a time) into the browser, so I had to modify how I was capturing the data before I was displaying it. I was first capturing all 20 records before populating, but then I modified the code to pass each article as a separate object to the display function. Lastly I needed some way to have the user know the site was working. Adding a loading circle was the solution. Tried out a few and settled on one that relied on css to generate. I used transform on the container  and animation on the icon itself. Attached it to the function 
 ```
  //AJAX call to the NCIB database
   const callNCIB = event => {
